@@ -1,0 +1,279 @@
+Eisha Tir Raazia
+sec C
+17k-3730
+lab 10
+--------------1-------------
+INCLUDE Irvine32.inc
+.data
+	Str1 BYTE "127&j~3#^&*#*#45^",0
+	count dword 0
+.code
+	main PROC
+		mov ecx,lengthof Str1
+		mov edi,offset Str1
+		mov al,'#'
+		l1:
+		inc count
+			scasb
+		loopne l1
+		dec count
+mov eax,count
+call writedec
+call crlf
+	exit
+	main ENDP
+	END main
+-----------2---------------
+NCLUDE Irvine32.inc
+.data
+	Str1 BYTE "127&j~3#^&*#*#45^",0
+	count dword 0
+.code
+	main PROC
+
+		push offset str1
+		push '#'
+		call scanProc
+	
+call crlf
+	exit
+	main ENDP
+	scanProc PROC
+		push ebp
+		mov ebp,esp
+		mov edi,[ebp+12]
+		mov al,[ebp+8]
+		mov ecx,lengthof str1
+		L1:
+			inc count
+			scasb
+		loopne L1
+		mov eax,count
+		call writedec
+		pop ebp
+	ret
+	scanProc ENDP
+	END main
+-------------3------------
+
+INCLUDE Irvine32.inc
+.data
+	a1 BYTE "ABCDE",0
+	a2 BYTE "ABCDEF",0
+	msg BYTE "Equal",0
+	msg1 BYTE "Unequal",0
+
+.code
+	main PROC
+	mov edx,0
+	CALL ISCMP
+		
+	
+call crlf
+	exit
+	main ENDP
+	ISCMP PROC
+		mov edi,offset a2
+		mov esi,offset a1
+		mov ecx,length a2
+		repe cmpsb
+			je L2
+			mov edx,offset msg1
+			call writestring
+		L2:
+		mov edx,offset msg
+		call writestring
+		exit	
+	ret
+	ISCMP ENDP
+	END main
+--------------4---------------
+INCLUDE Irvine32.inc
+.data
+	a1 BYTE "ABCDE",0
+	a2 BYTE 5 DUP(?)
+.code
+	main PROC
+	CALL movestr
+	call crlf
+	exit
+	main ENDP
+		movestr PROC
+		cld
+			mov edi,offset a2
+			mov esi,offset a1
+			mov ecx,5
+			rep	movsb
+			mov edx,offset a2
+			call writestring	
+		ret
+		movestr ENDP
+	END main
+--------------5---------------
+INCLUDE Irvine32.inc
+.data
+	a1 BYTE "ABCDE",0
+	a2 BYTE 5 DUP(?)
+	x BYTE 0
+.code
+	main PROC
+	mov edx,0
+	CALL revstr
+		
+	
+call crlf
+	exit
+	main ENDP
+	revstr PROC
+	cld
+		mov edi,offset a2
+		mov esi,offset a1
+		mov edx,lengthof a1
+		dec edx
+		mov ebx,0
+		mov ecx,lengthof a1
+		L1:
+		
+			mov eax,[esi+edx]
+			mov [edi+ebx],eax
+			call writechar
+			dec edx
+			inc ebx
+		loop L1
+		
+	ret
+	revstr ENDP
+	END main
+----------------6--------------
+INCLUDE Irvine32.inc
+.data
+	array dword 0,1,2,3,4,5,6,7,8,9
+	a dword 3
+.code
+	main PROC
+		cld
+		mov esi,offset array
+		mov edi,esi
+		mov ecx,lengthof array
+		l1:
+		LODSD
+		mul a
+		STOSD
+		call writedec
+		call crlf
+		loop l1
+
+	call crlf
+	exit
+	main ENDP
+	END main
+----------------7--------------
+INCLUDE Irvine32.inc
+.data
+A byte 1,2,3,4,5,6,7,8,9,10,11
+num byte 4
+.code
+
+;eax=mid,ebx=lowerBound,edx=upperBound,cl=2
+
+main PROC
+mov edi,offset A
+;eax=mid,ebx=lowerBound,edx=upperBound,cl=2
+mov esi,0
+mov cl,2
+
+mov ebx,0
+mov edx,lengthof A -1
+l1:
+
+cmp ebx,edx
+jnbe outer
+mov ah,A[esi]
+cmp ah,num
+jz outer
+
+mov ah,A[esi]
+cmp ah,num
+jna setLowerBound
+ja setUpperBound
+
+back:nop
+mov eax,ebx
+add eax,edx
+div cl
+movzx eax,al
+movzx si,al
+jmp l1
+
+setLowerBound:
+
+movzx ebx,si
+add ebx,1
+jmp back
+
+setUpperBound:
+
+movzx edx,si
+sub edx,1
+jmp back
+
+outer:
+nop
+mov eax,esi
+
+call dumpregs
+
+exit
+main ENDP
+END main
+
+----------------8--------------
+INCLUDE Irvine32.inc
+
+.data
+destination byte "AABCBBAZYEDHH",0
+freqTable  byte 26 dup(0)
+n byte ?
+space byte " =  ",0
+
+.code
+main PROC
+mov ecx, lengthof destination
+mov esi,0
+
+l1:
+mov eax,0
+mov al,destination[esi]
+push esi
+sub al,65
+mov esi,eax
+add freqTable [esi],1
+pop esi
+inc esi
+loop l1
+
+mov n,65
+mov esi,0
+mov ecx, lengthof freqTable 
+
+l2:
+mov eax,0
+mov al,n
+
+call writechar 
+mov edx, offset space
+
+call writestring
+
+mov eax,0
+mov al, freqTable [esi]
+
+call writedec
+inc esi
+add n,1
+call crlf
+loop l2
+
+exit	
+main ENDP
+END main

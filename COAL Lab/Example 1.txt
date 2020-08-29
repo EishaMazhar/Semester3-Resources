@@ -1,0 +1,96 @@
+INCLUDE Irvine32.inc
+.data
+	v1 Byte 1
+	v2 dword ?
+	v3 dword 10
+	arr WORD 1,2,3,4,5
+	msg BYTE " HELLO WORLD!..",0
+.code
+
+main PROC
+mov ecx,10
+	L1:
+	mov v2,ecx
+	push ecx
+		L2:
+			mov al,v1
+			Call WriteChar
+				Loop L2
+		dec v3
+		pop ecx
+		Call crlf	
+	Loop L1
+
+
+; "Task 2" Printing an array!
+	Call crlf
+	mov eax,0
+	mov esi,0
+	mov ecx,5
+	L3:
+		mov ax,arr[esi*TYPE arr] ;inderect addressing with scaling factor
+		inc esi
+		Call WriteDec
+		Call crlf
+	loop L3
+		Call crlf
+
+; "Task 3" Direct OFFSET addressing
+	mov esi, OFFSET arr
+	mov ecx, LENGTHOF arr
+	mov eax, 0 
+
+	outer:
+		mov ebx,ecx
+		mov ecx,5
+		mov edx,OFFSET msg
+		mov ax,[esi]
+		call WriteDec
+			inner:
+				call WriteString
+			loop inner
+			Call crlf
+		add esi,2
+		mov ecx, ebx
+	loop outer
+	Call myproc
+	Call myproc2
+	Call stk
+main ENDP
+
+; "Task4" returning from a procedure
+
+	myproc PROC
+		mov al,"*"
+		Call WriteChar
+		Call crlf
+		ret
+	myproc ENDP
+	;END myproc		;ye nhi kia tou 2 * print hon ge
+
+; "Task 5" 
+	myproc2 PROC
+		mov al,"a"
+		Call WriteChar
+		Call crlf
+		ret
+	myproc2 ENDP
+	;END myproc2	
+
+; "Task 6" Stack Operations 
+	stk PROC
+		push ebp
+		mov ebp,esp
+		mov eax,[ebp+8]
+		Call WriteDec
+		Call crlf
+		mov eax,[ebp+12]
+		Call WriteDec
+		pop ebp
+		Call crlf
+		ret
+	stk ENDP
+	;END stk
+	exit			;ye nhi kia tou 2 * print hon ge
+	
+END main

@@ -1,0 +1,26 @@
+INCLUDE Irvine32.inc
+.data
+	Str1 BYTE "127&j~3#^&*#*#45^",0
+	Str2 BYTE "First String",0    ;act1
+	Str3 BYTE "Second String",0   ;act1
+	arr1 BYTE 1,1,1,1,1		;act2
+	arr2 BYTE 2,2,2,2,2		;act2
+
+.code
+	main PROC
+	;ACT1
+		mov esi,offset Str2    ;source
+		mov edi,offset Str3    ;destination
+		mov ecx,lengthof Str2
+		rep movsb
+	;ACT2
+
+		mov esi,offset arr1    ;source
+		mov edi,offset arr2    ;destination
+		mov ecx,3
+		std  ;set direction flag
+		rep movsb
+
+	exit
+	main ENDP
+	end main

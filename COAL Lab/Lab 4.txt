@@ -1,0 +1,122 @@
+EISHA TIR RAAZIA
+17K-3730
+Lab 4 Tasks
+---------1---------
+INCLUDE Irvine32.inc
+.data
+	arr BYTE 61,43,11,52,25
+	arr2 BYTE 5 DUP(?)
+
+.code
+	main PROC
+		mov eax,0
+		mov al,arr[2]
+		mov arr2[0],al
+		mov al,arr[4]
+		mov arr2[1],al
+		mov al,arr[1]
+		mov arr2[2],al
+		mov al,arr[3]
+		mov arr2[3],al
+		mov al,arr[0]
+		mov arr2[4],al
+
+	call DumpRegs
+	exit
+	main ENDP
+	END main
+
+	
+---------2---------
+.data
+	arrayB BYTE 10, 20, 30
+	arrayW WORD 150, 250, 350
+	arrayD DWORD 600, 1200, 1800
+	S1 DWORD 0
+	S2 DWORD 0
+	S3 DWORD 0
+.code
+main PROC
+	mov eax,0
+	movzx eax,arrayB[0]
+	add eax,dword ptr arrayW[0]
+	add eax,arrayD[0]
+	mov S1,eax
+	call DumpRegs
+	mov eax,0
+	movzx eax,arrayB[1]
+	add eax,dword ptr arrayW[1]
+	add eax,arrayD[1]
+	mov S1,eax
+	call DumpRegs
+	mov eax,0
+	movzx eax,arrayB[2]
+	add eax,dword ptr arrayW[2]
+	add eax,arrayD[2]
+	mov S1,eax
+	call DumpRegs
+
+	exit
+	main ENDP
+	END main
+
+---------3---------
+INCLUDE Irvine32.inc
+.data
+	u SBYTE -12
+	v SBYTE -2
+	w SBYTE 4
+	x SBYTE -6
+	y SBYTE -8
+	z SBYTE ?
+.code
+	main PROC
+	mov eax,0
+	mov al,x
+	add al,y
+	add al,w
+	add al,u
+	sub al,v
+	mov z,al
+	call DumpRegs
+
+	exit
+	main ENDP
+	END main
+--------4----------
+.data
+	array1 BYTE 10, 20, 30, 40
+	array2 BYTE DUP(?)
+.code
+	main PROC
+	mov eax,0
+	mov ebx,0
+	mov edx,0
+	mov ebx,lengthof array2
+	dec ebx
+	mov al,array1[ebx]   
+	mov array2[eax],al   
+	movzx edx,array2[eax]  ; array2[3]=00000028 (EDX)
+	call DumpRegs
+	dec ebx
+	inc eax
+	mov al,array1[ebx]
+	mov array2[eax],al
+	movzx edx,array2[eax]  ; array2[2]=0000001E (EDX)
+	call DumpRegs
+	dec ebx
+	inc eax
+	mov al,array1[ebx]
+	mov array2[eax],al
+	movzx edx,array2[eax]  ; array2[1]=00000014 (EDX)
+	call DumpRegs
+	dec ebx
+	inc eax
+	mov al,array1[ebx]
+	mov array2[eax],al
+	movzx edx,array2[eax]  ; array2[0]=0000000A (EDX)
+	call DumpRegs
+
+	exit
+	main ENDP
+	END main

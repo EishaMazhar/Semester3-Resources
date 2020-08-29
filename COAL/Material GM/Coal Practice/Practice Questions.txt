@@ -1,0 +1,465 @@
+FACTORIAL NUMBER USING LOOP
+
+TITLE My First Program (Test.asm)
+INCLUDE Irvine32.inc
+.data
+EnterInput byte "Enter number to get its factorial : ",0
+Output byte "Factorial : ",0
+.code
+main PROC
+	mov eax , 0
+	mov ebx , 0
+	mov ecx , 0
+	mov edx , 0
+
+	mov edx , Offset EnterInput
+	call WriteString
+	call ReadInt
+
+
+mov ecx , eax
+mov eax , 1
+Here:
+
+	mul ecx
+
+Loop Here
+
+	call crlf
+	mov edx , Offset Output
+	call WriteString
+	call WriteInt
+	call crlf
+
+exit
+main ENDP
+END main
+
+FACTORIAL NUMBER USING JUMPS
+TITLE My First Program (Test.asm)
+INCLUDE Irvine32.inc
+
+.data
+	EnterInput byte "Enter number to find out its Factorial : ",0
+	array dword 1000 dup(0)
+
+.code
+main PROC
+
+	mov eax , 0
+	mov ebx , 0
+	mov ecx , 0
+	mov edx , 0
+
+	mov edx , Offset EnterInput
+	call WriteString
+	call ReadInt ; eax contain integer you input
+
+
+	mov ecx , eax   ; contains numbers of turns of a
+	mov eax , 1
+	
+Here:
+
+	mul ecx
+
+	call dumpregs
+
+dec ecx
+cmp ecx , 0
+jne Here
+
+exit
+main ENDP
+END main
+
+
+Fibonnacci series
+TITLE My First Program (Test.asm)
+INCLUDE Irvine32.inc
+
+.data
+	EnterInput byte "Enter Limit of number to get its Fibonnaci Series : ",0
+	array dword 1000 dup(0)
+	turns dword 0
+
+.code
+main PROC
+
+	mov eax , 0
+	mov ebx , 0
+	mov ecx , 0
+	mov edx , 0
+
+	mov edx , Offset EnterInput
+	call WriteString
+	call ReadInt ; eax contain integer you input
+
+
+	mov turns , eax   ; contains numbers of turns of a
+	
+	mov esi , OFFSET array
+	
+	mov eax , 0
+	mov [esi] , eax 
+	add esi , 8
+
+	mov eax , 1
+	mov [esi] , eax  
+	add esi , 8
+
+
+	
+Here:
+	
+	mov eax , 0
+	mov eax , [esi - 8]
+	add eax ,[esi - 16]
+	mov [esi] , eax   
+	add esi , 8
+
+inc ecx
+cmp ecx , turns
+jne Here
+
+mov ecx , 0
+mov esi , OFFSET array
+There:
+	
+	mov eax , [esi]
+	add esi , 8
+	call WriteInt
+	
+inc ecx
+cmp ecx , turns
+jne There
+
+
+
+
+exit
+main ENDP
+END main
+
+
+N th Inputs
+
+
+
+TITLE My First Program (Test.asm)
+INCLUDE Irvine32.inc
+
+.data
+	EnterInput byte "Enter Limit of array you want to enter : ",0
+	array dword 1000 dup(0)
+	turns dword 0
+
+.code
+main PROC
+
+	mov eax , 0
+	mov ebx , 0
+	mov ecx , 0
+	mov edx , 0
+
+	mov edx , OFFSET EnterInput
+	Call WriteString
+
+	Call ReadInt
+	mov turns , eax ; the number of turns array would take an input
+
+	mov ecx , turns
+
+
+	mov esi , OFFSET array
+Here:
+
+	Call ReadInt
+	mov [esi], eax 
+	add esi , 8
+
+Loop HERE
+
+
+
+exit
+main ENDP
+END main
+
+SUM OF N INTEGERS
+
+
+
+INCLUDE irvine32.inc
+.stack
+
+.data
+	Input  byte "How many Inputs you want to take in an array : ", 0
+	output byte  "The sum of an array is : ", 0
+	ArrayCount dword 0
+	array dword  1000 dup(0),0
+.code
+main PROC
+	mov eax , 0
+	mov ebx , 0
+	mov ecx , 0
+	mov edx , 0
+
+	mov edx , OFFSET Input
+	Call writestring
+	call readint 
+	mov ArrayCount, eax
+	mov ecx , 0
+
+	mov esi , OFFSET array
+	ArrayInput:
+				call readint
+				mov [esi] , eax
+				add esi , 8
+				inc ecx
+				cmp ArrayCount ,  ecx
+				jne ArrayInput
+
+	mov ecx , 0
+	mov eax , 0
+	mov esi , OFFSET array
+	PrintArray:
+				add eax , [esi]
+				add esi  , 8
+				inc ecx
+				cmp ArrayCount ,  ecx
+				jne PrintArray
+	mov edx , offset output
+	call writestring
+	call writeint
+
+exit
+main endp
+end main
+
+
+
+REVERSE STRING
+
+
+
+INCLUDE irvine32.inc
+
+
+.data
+
+array byte "My name is Syed Umer Hasan",0
+
+.code
+main PROC
+
+	mov esi ,0
+	mov ecx , LENGTHOF array -1
+	
+	L1:		
+			movzx eax , array[esi]
+			push eax
+			inc esi
+			LOOP L1
+
+	mov esi , 0
+	mov ecx , LENGTHOF array -1
+	
+	L2:		pop eax
+			mov array[esi],  al
+			inc esi
+			LOOP L2
+		
+	mov edx , OFFSET array
+	call WriteString
+	call crlf
+exit
+main endp
+end main
+
+
+
+BUBBLE SORTING 
+
+
+
+INCLUDE irvine32.inc
+
+.data
+	array Dword 5,9,11,6,7,2,3,1,0,15,18,12,10
+	count dword 0
+	iteration Dword 0
+.code
+main PROC
+	
+	mov ecx , LENGTHOF array-1
+
+	HERE:
+			mov esi , OFFSET array
+			mov count , ecx
+			mov ecx , LENGTHOF array-1
+	THERE:
+			mov eax , [esi]
+			mov ebx , [esi+4]
+			
+			
+			cmp eax , ebx
+			jg elsee
+			
+			mov [esi+4] , eax
+			mov [esi] , ebx
+			
+		elsee:
+			
+			add esi , 4
+		LOOP THERE
+
+			mov ecx , count
+		LOOP HERE
+
+	mov ecx , LENGTHOF array 
+	mov esi , OFFSET array
+	L1:
+		mov eax , [esi]
+		call writeInt
+		add esi , 4
+	LOOP L1
+
+
+exit
+main endp
+end main
+
+
+
+REVERSE INTEGER ARRAY
+
+
+
+
+INCLUDE irvine32.inc
+
+
+.data
+
+array word 10,12,51,62,5,9,71,5,95,25,35,15,59,0
+
+.code
+main PROC
+
+	mov esi ,0
+	mov ecx , LENGTHOF array -1
+	
+	L1:		
+			movzx eax , array[esi]
+			push eax
+			add esi , 2
+			LOOP L1
+
+	mov esi , 0
+	mov ecx , LENGTHOF array -1
+	
+	L2:		pop eax
+			mov array[esi],  ax
+			add esi , 2
+			call WriteInt
+
+			LOOP L2
+		
+	call crlf
+exit
+main endp
+end main
+
+
+
+
+
+
+
+
+
+
+
+Functions
+
+
+
+
+INCLUDE irvine32.inc
+
+.data
+	array Dword 5,9,11,6,7,2,3,1,0,15,18,12,10
+	count dword 0
+	String byte "My name is Syed Umer Hasan",0
+	iteration Dword 0
+	Key Dword 1010
+.code
+main PROC
+
+	mov eax , 0
+	mov ebx , 0
+	mov ecx , 0
+	mov edx , 0
+	mov esi , OFFSET String
+	mov ecx , LENGTHOF String-1
+	call dumpregs
+	call Encrypt
+	call Print
+	call Print
+	call Decrypt
+	call dumpregs
+	exit
+main endp
+
+Print Proc uses ecx  esi
+	pushad
+		HERE:
+			mov eax , [esi]
+			inc esi 
+			push eax
+		LOOP HERE
+		mov esi , OFFSET String
+		mov ecx , LENGTHOF String-1
+		THERE:
+			pop eax
+			mov [esi] , eax
+			inc esi
+			Call WriteChar
+		LOOP THERE
+	call crlf
+	popad
+	ret 
+Print endp
+
+Encrypt PROC uses ecx  esi
+	pushad	
+			HERE:
+				mov eax , [esi]
+				add eax , Key
+				mov [esi] , eax
+				inc esi
+				call WriteChar
+			LOOP HERE
+	call crlf
+	popad
+		ret
+Encrypt endp
+
+Decrypt PROC uses ecx  esi
+		pushad
+			HERE:
+				mov eax , [esi]
+				sub eax , Key
+				mov [esi] , eax
+				inc esi
+				call WriteChar
+			LOOP HERE
+		
+	call crlf
+	popad
+		ret
+Decrypt endp
+
+
+end main

@@ -1,0 +1,25 @@
+>>> Read all covered topics, code snippets and tables from chapter # 3
+
+>>> Topics covered:
+
+1. Carefully read section 3.1 which contains 10 sub-sections
+
+2. include      // include files
+   include lib	// include library (if used an external function calls)
+   .data
+   ...          // declare your variables here
+   .code
+   main PROC
+      ...	// your code goes here. Use variabes in your code
+      exit	// Not a instruction but a macro. calls windows to end program
+   main ENDP
+   END main	// last line. Identify startup procedure that runs first.
+
+3. The code segment contains one or more procedures, with one designated as the
+   startup procedure. In the first.asm program, the startup procedure is main. 
+   Another segment, the stack segment, holds procedure parameters and local 
+   variables. The data segment holds variables.
+
+4. Carefully read Section 3.4.
+
+Whiteboard snap(s) attached.

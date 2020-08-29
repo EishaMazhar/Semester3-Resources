@@ -1,0 +1,60 @@
+* html #wgstylepopupdiv {
+position:absolute;
+}
+#wgstylepopupdiv {
+z-index:999;
+display:block;
+top:0;
+left:0;
+width:100%;
+height:100%;
+position:fixed;
+background-image:url(../images/wgspir.png);
+overflow-y:auto;
+margin:0;
+}
+.wgstylepopup {
+width:883px;
+height:536px;
+position:fixed;
+top:50%;
+left:42%;
+margin-top:-237.5px;
+margin-left:-309.5px;
+}
+#wgstylepopup {
+overflow:none;
+background-image:url(../images/feedback.png);
+background-repeat:no-repeat;
+}
+ads#wgstylepopup {
+position:absolute;
+top:130px;
+left:30px;
+background:transparent;
+}
+
+
+form#wgstylepopup {
+display:block;
+margin:0;
+}
+form#wgstylepopup #wgfield {
+position:absolute;
+top:237px;
+left:480px;
+width:300px;
+font-size:14px;
+border:none;
+background:transparent;
+padding:10px;
+}
+form#wgstylepopup #wgbutton {
+position:absolute;
+left:710px;
+top:300px;
+width:80px;
+height:30px;
+border:none;
+background:transparent;
+}

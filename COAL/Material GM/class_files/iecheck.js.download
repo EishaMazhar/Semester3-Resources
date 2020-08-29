@@ -1,0 +1,5 @@
+$(function () {
+	if (typeof window.addEventListener == "undefined" && typeof document.documentElement.style.maxHeight == "undefined") {
+		$('body').prepend('<div class="ie6_error"></div>');
+	}
+});

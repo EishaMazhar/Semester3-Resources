@@ -1,0 +1,8 @@
+>>> Read all covered topics, code snippets and tables from chapter # 3
+
+>>> Topics covered:
+
+1. Two operators covered: = and $ (See pdf file)
+
+2. Quiz - 1 (solution will be send seperately)
+

@@ -1,0 +1,13 @@
+		***Chau Fasman Algorithm***
+
+protien name: nfjhtg
+
+		Pa	Pb	Pt	<Pa><Pb><Pt>	
+1	A	139	79	66		0	___
+2	C	95	107	119		73	__*
+3	T	78	133	96		0	___
+4	G	64	87	156		0	___
+5	P	55	62	152		0	___
+
+
+Dominant Structure : BetaSheets

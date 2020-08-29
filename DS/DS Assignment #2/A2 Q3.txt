@@ -1,0 +1,57 @@
+Total number of customers in 18 hours : 213
+
+Customer in hour 1 : 16
+Average Waiting Time Of Hour 1 : 45
+Average Customer in Hour 1 : 2
+Customer in hour 2 : 16
+Average Waiting Time Of Hour 2 : 109
+Average Customer in Hour 2 : 6
+Customer in hour 3 : 2
+Average Waiting Time Of Hour 3 : 906
+Average Customer in Hour 3 : 453
+Customer in hour 4 : 17
+Average Waiting Time Of Hour 4 : 149
+Average Customer in Hour 4 : 8
+Customer in hour 5 : 13
+Average Waiting Time Of Hour 5 : 250
+Average Customer in Hour 5 : 19
+Customer in hour 6 : 5
+Average Waiting Time Of Hour 6 : 704
+Average Customer in Hour 6 : 140
+Customer in hour 7 : 11
+Average Waiting Time Of Hour 7 : 358
+Average Customer in Hour 7 : 32
+Customer in hour 8 : 18
+Average Waiting Time Of Hour 8 : 262
+Average Customer in Hour 8 : 14
+Customer in hour 9 : 16
+Average Waiting Time Of Hour 9 : 353
+Average Customer in Hour 9 : 22
+Customer in hour 10 : 13
+Average Waiting Time Of Hour 10 : 490
+Average Customer in Hour 10 : 37
+Customer in hour 11 : 18
+Average Waiting Time Of Hour 11 : 406
+Average Customer in Hour 11 : 22
+Customer in hour 12 : 12
+Average Waiting Time Of Hour 12 : 655
+Average Customer in Hour 12 : 54
+Customer in hour 13 : 7
+Average Waiting Time Of Hour 13 : 1195
+Average Customer in Hour 13 : 170
+Customer in hour 14 : 17
+Average Waiting Time Of Hour 14 : 546
+Average Customer in Hour 14 : 32
+Customer in hour 15 : 14
+Average Waiting Time Of Hour 15 : 704
+Average Customer in Hour 15 : 50
+Customer in hour 16 : 2
+Average Waiting Time Of Hour 16 : 4954
+Average Customer in Hour 16 : 2477
+Customer in hour 17 : 5
+Average Waiting Time Of Hour 17 : 2054
+Average Customer in Hour 17 : 410
+Customer in hour 18 : 11
+Average Waiting Time Of Hour 18 : 991
+Average Customer in Hour 18 : 90
+Total average service time for 18 Hours is  : 883756

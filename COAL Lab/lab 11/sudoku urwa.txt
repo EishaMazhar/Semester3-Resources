@@ -1,0 +1,966 @@
+.386
+
+.model flat
+
+; there are the prototypes of the procedures used in this program. They will be explained by adding comments in the beggining of each procedure inside dhe program code. Also there will be comments inside the procedures.
+
+
+public _solver
+
+public _generate
+
+public _hideCells
+
+public check_initial_puzzle
+
+public solve
+
+public check
+
+public checkColumn
+
+public checkColumn
+
+public getValue
+
+public checkGroup
+
+public check_coordinate
+
+public backtracking
+
+public inc_current_value
+
+public make0_current_value
+
+grid EQU [ebp+8]
+
+used_i EQU [ebp+12]
+
+used_j EQU [ebp+16]
+
+n EQU [ebp + 20]
+
+seed EQU [ebp + 24]
+
+.data
+
+value DWORD ?
+
+counter DWORD 0
+
+; group_i and group_j are the initial coordinates for a group. There are totally 9 groups. for example the first group's coordinate is 0, 0. The group found right to this has the coordinate 0, 3. and so on.
+
+group_i DWORD ?
+
+
+group_j DWORD ?
+
+; current_i and current_j are very used in this program code, because almost all procedures need these two variables which are global.
+
+; they express the current i and current j coordinates being currently used. So for example, when e procedure modifies them , there may be another procedure which takes the data stored in these 2 variables and manipulates it.
+
+current_i DWORD 0
+
+current_j DWORD 0
+
+; this is a boolean which is 1 in case that the cell can be filled
+
+;and it is 0 when the cell cannot be filled because it is the constant value comming in the sudoku puzzle.
+
+not_constant DWORD ?
+
+; index is used to move inside an array
+
+index DWORD 0
+
+; this is a string containin the 1-9 values which will be put randomly on an empty grid, after that the solve procedure is called in order to solve this grid
+
+; and as a result a new solved random puzzle will be generated
+
+one_to_nine DWORD 1,2,3,4,5,6,7,8,9
+
+; the seed is taken from the main.cpp and it is stored in seed_value. after that the program changes it addind values of the adresses of the esi where currently
+
+; the esi points. It is done in order to generate random values and in each program start these random values will be different, because seed takes the value from the function GetTickCount()
+
+seed_value DWORD 0
+
+no_solution DWORD 0
+
+.code
+
+; The solve procedure is the place where other procedures are called in order to make this program work correctly. The algorithm to solve the sudoku puzzle consists on
+
+; the bactracking rules. So it is something like brute-force but it has a better efficciency because when trying the new value it firstly checks the column, row and group.
+
+
+; All the entered value's coordinates are stored in the used_i and used_j, which using the same index respectively, they express a value found in the grid (which is our puzzle)
+
+; For example, let's assume that the value X has the coordinate i=4, j=6 and using the same index the coordinates are stored in used_i and used_j. for example used_i[index] and used_j[index]
+
+solve PROC NEAR
+
+
+mov esi, grid ;esi points to the start of the grid adress
+
+mov current_i, 0
+
+mov current_j, 0
+
+loop_i:
+
+loop_j:
+
+
+cmp current_i, 8
+
+jg out_i
+
+cmp current_j, 8
+
+jg out_j
+
+call check_coordinate
+
+
+cmp not_constant, 0
+
+je next_cell
+
+next_value:
+
+cmp no_solution, 1
+
+je there_is_no_solution
+
+
+call inc_current_value
+
+call getValue
+
+cmp value, 9
+
+jg backtrack
+
+call check
+
+
+cmp eax, 0
+
+jne next_value
+
+jmp next_cell
+
+;call inc_current_value
+
+backtrack:
+
+
+call make0_current_value
+
+call backtracking
+
+jmp next_value
+
+next_cell:
+
+inc current_j
+
+
+jmp loop_j
+
+out_j:
+
+inc current_i
+
+mov current_j, 0
+
+jmp loop_i
+
+
+there_is_no_solution:
+
+mov eax, 0
+
+jmp end_solving
+
+out_i:
+
+mov eax, 1
+
+end_solving:
+
+ret
+
+solve ENDP
+
+_solver PROC NEAR
+
+push ebp
+
+
+mov ebp, esp
+
+push esi
+
+call check_initial_puzzle
+
+cmp no_solution, 1
+
+je wrong_puzzle
+
+call solve
+
+jmp ok
+
+wrong_puzzle:
+
+mov eax, 0
+
+ok:
+
+
+pop esi
+
+pop ebp
+
+ret
+
+_solver ENDP
+
+; here is the procedure which will generate current_i and current_j randomly. In the same time, the string one_to_nine is read, and its elements are taken one by one and put in the grid.
+
+
+_generate PROC NEAR
+
+push ebp
+
+mov ebp, esp
+
+push esi
+
+mov esi, used_i
+
+
+mov ecx, 9
+
+mov eax, seed
+
+mov seed_value, eax
+
+randomizing_i:
+
+add seed_value, esi
+
+
+;multiplying the seed_value with itself will make a new one, so the there will be a more random number to be generated
+
+mov eax, seed_value
+
+mov ebx, seed_value
+
+mul ebx
+
+add seed_value, eax
+
+
+mov eax, seed_value
+
+mov edx, 0
+
+mov ebx, 9
+
+div ebx
+
+mov DWORD PTR [esi], edx
+
+
+add esi, 4
+
+loop randomizing_i
+
+mov esi, used_j
+
+mov ecx, 9
+
+randomizing_j:
+
+add seed_value, esi
+
+mov eax, seed_value
+
+mov edx, 0
+
+mov ebx, 9
+
+div ebx
+
+mov DWORD PTR [esi], edx
+
+add esi, 4
+
+loop randomizing_j
+
+mov esi, used_i
+
+mov edi, used_j
+
+mov index, 0
+
+mov ecx, 9
+
+put_on_grid:
+
+mov eax, DWORD PTR [esi]
+
+mov current_i, eax
+
+mov eax, DWORD PTR [edi]
+
+mov current_j, eax
+
+push esi
+
+mov esi, grid
+
+mov eax, current_i
+
+mov ebx, 9
+
+mul ebx
+
+add eax, current_j
+
+mov ebx, 4 ;because each record contains 4 bits (DWORD)
+
+mul ebx ;now in eax is stored the index of the value to check
+
+add esi, eax
+
+mov eax, index
+
+mov eax, one_to_nine[eax]
+
+mov DWORD PTR [esi], eax
+
+pop esi
+
+add esi, 4
+
+add edi, 4
+
+add index, 4
+
+loop put_on_grid
+
+call solve
+
+
+pop esi
+
+pop ebp
+
+ret
+
+_generate ENDP
+
+; after generating the new sudoku puzzle, the user may want to hide some cells in order to make this a real puzzle which can be solved.
+
+_hideCells PROC NEAR
+
+push ebp
+
+mov ebp, esp
+
+push esi
+
+mov esi, grid
+
+mov eax, seed
+
+mov seed_value, eax
+
+;70 means the number of loops to be made, so it means the number of new random coordinates. Many times, it may be possible that the same coordinate is generated. So it will put zero in the same coordinate. So, normally there are never 70 zeros in the puzzle.
+
+mov ecx, 70
+
+hiding:
+
+mov eax, seed_value
+
+mov edx, 0
+
+mov ebx, 81
+
+div ebx
+
+mov seed_value, eax
+
+mov eax, edx
+
+mov ebx, 4
+
+mul ebx
+
+push esi
+
+add esi, eax
+
+;multiplying the seed_value with itself will make a new one, so the there will be a more random number to be generated
+
+mov eax, seed_value
+
+mov ebx, seed_value
+
+mul ebx
+
+add seed_value, eax
+
+mov DWORD PTR [esi], 0
+
+pop esi
+
+loop hiding
+
+pop esi
+
+pop ebp
+
+ret
+
+_hideCells ENDP
+
+; check groups the 3 other procedures to check the row, column and group
+
+; if all of them result ok, also check procedure results ok.
+
+check PROC
+
+push esi
+
+call checkGroup
+
+cmp eax, 1
+
+je wrong
+
+call checkRow
+
+cmp eax, 1
+
+je wrong
+
+call checkColumn
+
+cmp eax, 1
+
+je wrong
+
+jmp true
+
+wrong:
+
+mov eax, 1
+
+jmp end_of_check
+
+true:
+
+mov eax, 0
+
+end_of_check:
+
+pop esi
+
+ret
+
+check ENDP
+
+checkRow PROC
+
+mov esi, grid ;esi points to the start of the grid adress
+
+call getValue
+
+mov ecx, 9
+
+mov esi, grid
+
+mov eax, current_i
+
+mov ebx, 9
+
+mul ebx
+
+mov ebx, 4
+
+mul ebx
+
+add esi, eax
+
+mov counter, 0
+
+check_row:
+
+mov eax, DWORD PTR [esi] ; one value of the current row
+
+cmp eax, 0
+
+je inRow_not_equal ; if it is 0, it means that there is an empty place which should not be considered temporarily
+
+cmp value, eax
+
+je inRow_is_equal
+
+jmp inRow_not_equal
+
+inRow_is_equal:
+
+add counter, 1
+
+inRow_not_equal:
+
+add esi, 4
+
+loop check_row
+
+cmp counter, 1
+
+jg inRow_not_correct
+
+mov eax, 0 ; 0 means that the value can be put on that row
+
+jmp inRow_ending
+
+inRow_not_correct:
+
+mov eax, 1 ; 1 means that the value can't be put on that row
+
+inRow_ending:
+
+ret
+
+checkRow ENDP
+
+checkColumn PROC
+
+mov esi, grid ;esi points to the start of the grid adress
+
+call getValue
+
+mov ecx, 9
+
+mov esi, grid
+
+
+mov eax, current_j
+
+mov ebx, 4
+
+mul ebx
+
+add esi, eax ;now, esi is the index of the head of the column
+
+mov counter, 0
+
+check_column:
+
+mov eax, DWORD PTR [esi] ; one value of the current row
+
+cmp eax, 0
+
+je inCol_not_equal ; if it is 0, it means that there is an empty place which should not be considered temporarily
+
+cmp value, eax
+
+je inCol_is_equal
+
+jmp inCol_not_equal
+
+inCol_is_equal:
+
+add counter, 1
+
+inCol_not_equal:
+
+add esi, 36 ; add 9*4 in order to pass in the next row, but remain still in the same column
+
+loop check_column
+
+cmp counter, 1
+
+jg inCol_not_correct
+
+mov eax, 0 ; 0 means that the value can be put on that row
+
+jmp inCol_ending
+
+inCol_not_correct:
+
+mov eax, 1 ; 1 means that the value can't be put on that row
+
+inCol_ending:
+
+ret
+
+checkColumn ENDP
+
+getValue PROC
+
+mov eax, current_i
+
+mov ebx, 9
+
+mul ebx
+
+add eax, current_j
+
+mov ebx, 4 ;because each record contains 4 bits (DWORD)
+
+mul ebx ;now in eax is stored the index of the value to check
+
+mov eax, DWORD PTR [esi + eax]
+
+mov value, eax
+
+ret
+
+getValue ENDP
+
+checkGroup PROC
+
+mov esi, grid ;esi points to the start of the grid adress
+
+call getValue
+
+mov eax, current_i
+
+cmp eax, 3
+
+jb i_smaller_than3
+
+cmp eax, 5
+
+jg i_greater_than5
+
+mov group_i, 3
+
+jmp i_found
+
+i_smaller_than3:
+
+mov group_i, 0
+
+jmp i_found
+
+i_greater_than5:
+
+mov group_i, 6
+
+i_found:
+
+mov eax, current_j
+
+cmp eax, 3
+
+jb j_smaller_than3
+
+cmp eax, 5
+
+jg j_greater_than5
+
+mov group_j, 3
+
+jmp j_found
+
+j_smaller_than3:
+
+mov group_j, 0
+
+jmp j_found
+
+j_greater_than5:
+
+mov group_j, 6
+
+j_found:
+
+;now, we have the initial coordinates of the group : group_i and group_j.
+
+mov eax, group_i
+
+mov ebx, 9
+
+mul ebx
+
+add eax, group_j
+
+mov ebx, 4 ;because each record contains 4 bits (DWORD)
+
+mul ebx ;now in eax is stored the index of the value to check
+
+add esi, eax ;esi has the adress of the initiation of the group index
+
+mov ecx, 3
+
+mov counter, 0
+
+check_group:
+
+push ecx
+
+mov ecx, 3
+
+checkRowInGroup:
+
+mov eax, DWORD PTR [esi]
+
+cmp eax, 0
+
+je inGroup_not_equal ; if it is 0, it means that there is an empty place which should not be considered temporarily
+
+cmp value, eax
+
+je inGroup_is_equal
+
+jmp inGroup_not_equal
+
+inGroup_is_equal:
+
+add counter, 1
+
+inGroup_not_equal:
+
+add esi, 4
+
+loop checkRowInGroup
+
+pop ecx
+
+add esi, 24 ; 6*4 = 24 This means that 6 cells will be passed in order to go to the next row of the same group
+
+loop check_group
+
+cmp counter, 1
+
+jg inGroup_not_correct
+
+mov eax, 0 ; 0 means that the value can be put on that row
+
+jmp inGroup_ending
+
+inGroup_not_correct:
+
+mov eax, 1 ; 1 means that the value can't be put on that row
+
+inGroup_ending:
+
+ret
+
+checkGroup ENDP
+
+; when giving the initial puzzle there are some cells which cannot be modified because they are given as a default. These coordinates expressing these cells are stored in the used_i and used_j arrays.
+
+; this procedure checks the current_i and current_j if they are showing a cell which cannot be modified by the program.
+
+check_coordinate PROC
+
+push esi
+
+push edi
+
+mov not_constant, 0 ;initalize not_constant as false
+
+mov esi, used_i
+
+mov edi, used_j
+
+mov ecx, n ; or used_i. this is the loop to check if that coordinate already exists in the board like a default puzzle value.
+
+check_coord:
+
+mov eax, DWORD PTR [esi]
+
+cmp eax, current_i
+
+jne value_no_exist
+
+mov eax, DWORD PTR [edi]
+
+cmp eax, current_j
+
+je end_check ; the coordinate can't be changed. because there is a puzzle value in here, which is given in the initial unsolved puzzle.
+
+value_no_exist:
+
+add esi, 4
+
+add edi, 4
+
+loop check_coord
+
+mov not_constant, 1 ; the required coordinate can be used because it is free.
+
+end_check:
+
+pop edi
+
+pop esi
+
+ret
+
+check_coordinate ENDP
+
+
+; this procedure goes back in the grid, but is uses the current_i and current_j values. If in a cell all the values from 1-9 are tried but none of them is possible to be put,
+
+; then the backtracking procedure will decrease the current position and will go to a modifiable cell. And the job of backtracking finishes here.
+
+backtracking PROC
+
+backtrack_i:
+
+cmp current_i, 0FFFFFFFFh
+
+je wrong
+
+backtrack_j:
+
+dec current_j
+
+cmp current_j, 0FFFFFFFFh
+
+je out_backtrack_j
+
+call check_coordinate
+
+cmp not_constant, 0
+
+je backtrack_j
+
+jmp out_backtracking
+
+jmp backtrack_j
+
+out_backtrack_j:
+
+mov current_j, 8
+
+dec current_i
+
+call check_coordinate
+
+cmp not_constant, 0
+
+jne out_backtracking
+
+jmp backtrack_i
+
+wrong:
+
+mov no_solution, 1
+
+out_backtracking:
+
+ret
+
+backtracking ENDP
+
+; this procedure takes the grid adress (which is stored in esi), current_i and current_j. After thinking this as a 2-dimensional table, it calculates the value and uses it in the 1-dimensional grid.
+
+; As it is seen below, it is multiplied by 4 because it uses DWORD and it is composed of 4 bits.
+
+inc_current_value PROC
+
+mov esi, grid
+
+mov eax, current_i
+
+mov ebx, 9
+
+mul ebx
+
+add eax, current_j
+
+mov ebx, 4 ;because each record contains 4 bits (DWORD)
+
+mul ebx ;now in eax is stored the index of the value to check
+
+inc DWORD PTR [esi + eax]
+
+ret
+
+inc_current_value ENDP
+
+; this is like the inc_current_value but instead of increasing the value it makes it 0.
+
+make0_current_value PROC
+
+mov esi, grid
+
+mov eax, current_i
+
+mov ebx, 9
+
+mul ebx
+
+add eax, current_j
+
+mov ebx, 4 ;because each record contains 4 bits (DWORD)
+
+mul ebx ;now in eax is stored the index of the value to check
+
+mov DWORD PTR [esi + eax], 0
+
+ret
+
+make0_current_value ENDP
+
+check_initial_puzzle PROC
+
+mov esi, used_i
+
+mov edi, used_j
+
+mov ecx, n
+
+checking_puzzle:
+
+mov eax, DWORD PTR [esi]
+
+mov current_i, eax
+
+mov eax, DWORD PTR [edi]
+
+mov current_j, eax
+
+push ecx
+
+call check
+
+pop ecx
+
+cmp eax, 0
+
+jne wrong_puzzle
+
+add esi, 4
+
+add edi, 4
+
+loop checking_puzzle
+
+jmp end_checking
+
+wrong_puzzle:
+
+mov no_solution, 1
+
+end_checking:
+
+ret
+
+check_initial_puzzle ENDP
+
+end

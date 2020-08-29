@@ -1,0 +1,35 @@
+>>> Review:
+
+i) CPU/uP is a complex digital circuit which executes instructions.
+ii) Instructions are processed using Fetch-Decode-Execute Cycles.
+
+>>> Read chapter # 2 secxtions 2.1.1 and 2.1.2 
+
+>>> Topics covered:
+
+1. Memory 
+   a) Number of location in memory (size of address bus). E.g. 1024 memory
+      locations need 10 bits wide address bus.
+   b) Size of each loction in memory (size of data bus). E.g. 8-bit wide data item. 
+   c) Control signal(s) for reading and writing data to memory
+   d) block diagram of memory chip (address, data and control busses)
+   e) Memory Write cycle (Supply address, supply data, assert Read signal)
+   f) Memroy Read cycle (Supply address, assert read signal, 
+      memory places data on databus).
+
+2. How to implement Fetech-Decode-Execute within a CPU/uP?
+   a) Instruction Pointer (IP) register generates instruction memory address and
+      places it on the address bus connected to memory
+   b) Instructions are received from memory using data bus in the Instruction
+      Register (IR)
+   c) The decoder decodes instruction in IR and generates control signals to execute
+      each instructions. This way CPU recognizes differnt instructions and their
+      operands (i.e. are they in registers or memory).
+   >>> Control Unit consist of IP, IR, and decoder including control signals <<<
+   d) CPU Registers. CPU registers give fast access to data (1-2 nano seconds) as
+      compaired to memory (40 - 80 nano seconds). However, they are limited in 
+      number ~100 of register per CPU core. Memory is usually unlimited (~100 GBs)
+   e) ALU performs Arithmatic and Logic Unit operations based on the type of
+      instruction. The resulting data is saved either in register or memory. 
+
+Whiteboard snaps attached.

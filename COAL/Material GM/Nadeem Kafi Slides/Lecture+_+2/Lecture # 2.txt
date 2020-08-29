@@ -1,0 +1,22 @@
+Topics covered:
+
+1. Generating Machine code
+   a) HLL to Machine code
+   b) Assembly to Machine code
+2. Converting C language expression to Assembly code
+   a) variables 
+   b) registers
+3. Memory organization 
+   a) addresses
+   b) data (of various sizes)
+4. Memory contains both program and data 
+   a) draw a memory starting from 0000 and ending at 00ff
+5. Microprocess(uP)/CPU is a very complex digital circuit for executing machine code    (instructions).
+   a) fetch-decode-execute-save results to memory cycle
+   b) decoding is necessary so that the uP decides which operation need to be 
+      performed on what operands.
+   c) A uP has a large number of instructions and the uP vendor provides a 
+      instructions set manual to enable the programmer to know about available
+      instructions.
+
+Whiteboard snaps attached.

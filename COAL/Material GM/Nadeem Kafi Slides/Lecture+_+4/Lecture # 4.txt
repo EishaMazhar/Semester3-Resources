@@ -1,0 +1,18 @@
+>>> Read chapter # 1 (full) and chapter # 2 topics coverd so far 
+
+>>> Topics covered:
+
+1. Review of chapter # 1 topics from textbook
+2. Reivew of chapter # 2 topis covered so far from text book
+3. clock, CLock cycle and millions of instruciton per second.
+4. Delays in accessing registers, memroy, hard disk data, keyboard data
+5. How IP proints to instructions in memory?
+6. Instruction size depends upon the processor data-word.
+7. Intruciton fetch-decode-read operant from memory-execute-write result to memory
+   a) Execution steps for ADD EAX, Y (Y is a memory variable)
+   b) Execution steps for ADD Y, EAX (Y is a memory variable)
+8. How OS loads programs in differnt parts of memory?
+   a) Variables of each program will be assigned physical memory addresses. Therfore,
+      we don't care about physical addresses of variables.
+
+Whiteboard snap(s) attached.

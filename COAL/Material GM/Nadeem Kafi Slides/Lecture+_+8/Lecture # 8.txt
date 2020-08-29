@@ -1,0 +1,27 @@
+>>> Read chapter # 3 topics page 66 onwards
+
+>>> Topics covered:
+
+1. Writing assembly code (variables declaration + logic) for the following C snippet
+   for (i=0; i<=10; i++) {
+      a = a + b;
+      c = a + i; 
+      } // assume that all variables are declared
+
+2. Assembler directives .data, .code, .stack
+   a) CS, DS and SS are initilized by the OS, so we worked with offsets.
+
+3. variables are declared using db, dw, dd, dq, dt, byte, word, dword, qword,
+   sbyte, sword, sdword etc. (see table 3.2 chapter # 3 page 78) 
+
+3. .stack 2048h means allocating 2048 bytes for stack segments
+   a) how stack segment is used during functional calls?
+   b) printf example in the class
+
+4. How data declarion in assembly code is mapped to data memory?
+   a) The offset starts from 0000h (for 8086)
+   b) the declared variables are allocated space in the data segment based on 
+      their size.
+   c) If there is a initial value, that value will be placed at that memory location
+
+Whiteboard snap(s) attached.

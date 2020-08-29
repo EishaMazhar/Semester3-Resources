@@ -1,0 +1,365 @@
+FACTORIAL NUMBER USING LOOP
+
+TITLE My First Program (Test.asm)
+INCLUDE Irvine32.inc
+.data
+EnterInput byte "Enter number to get its factorial : ",0
+Output byte "Factorial : ",0
+.code
+main PROC
+	mov eax , 0
+	mov ebx , 0
+	mov ecx , 0
+	mov edx , 0
+
+	mov edx , Offset EnterInput
+	call WriteString
+	call ReadInt
+
+
+mov ecx , eax
+mov eax , 1
+Here:
+
+	mul ecx
+
+Loop Here
+
+	call crlf
+	mov edx , Offset Output
+	call WriteString
+	call WriteInt
+	call crlf
+
+exit
+main ENDP
+END main
+
+FACTORIAL NUMBER USING JUMPS
+TITLE My First Program (Test.asm)
+INCLUDE Irvine32.inc
+
+.data
+	EnterInput byte "Enter number to find out its Factorial : ",0
+	array dword 1000 dup(0)
+
+.code
+main PROC
+
+	mov eax , 0
+	mov ebx , 0
+	mov ecx , 0
+	mov edx , 0
+
+	mov edx , Offset EnterInput
+	call WriteString
+	call ReadInt ; eax contain integer you input
+
+
+	mov ecx , eax   ; contains numbers of turns of a
+	mov eax , 1
+	
+Here:
+
+	mul ecx
+
+	call dumpregs
+
+dec ecx
+cmp ecx , 0
+jne Here
+
+exit
+main ENDP
+END main
+
+
+Fibonnacci series
+TITLE My First Program (Test.asm)
+INCLUDE Irvine32.inc
+
+.data
+	EnterInput byte "Enter Limit of number to get its Fibonnaci Series : ",0
+	array dword 1000 dup(0)
+	turns dword 0
+
+.code
+main PROC
+
+	mov eax , 0
+	mov ebx , 0
+	mov ecx , 0
+	mov edx , 0
+
+	mov edx , Offset EnterInput
+	call WriteString
+	call ReadInt ; eax contain integer you input
+
+
+	mov turns , eax   ; contains numbers of turns of a
+	
+	mov esi , OFFSET array
+	
+	mov eax , 0
+	mov [esi] , eax 
+	add esi , 8
+
+	mov eax , 1
+	mov [esi] , eax  
+	add esi , 8
+
+
+	
+Here:
+	
+	mov eax , 0
+	mov eax , [esi - 8]
+	add eax ,[esi - 16]
+	mov [esi] , eax   
+	add esi , 8
+
+inc ecx
+cmp ecx , turns
+jne Here
+
+mov ecx , 0
+mov esi , OFFSET array
+There:
+	
+	mov eax , [esi]
+	add esi , 8
+	call WriteInt
+	
+inc ecx
+cmp ecx , turns
+jne There
+
+
+
+
+exit
+main ENDP
+END main
+
+
+N th Inputs
+
+TITLE My First Program (Test.asm)
+INCLUDE Irvine32.inc
+
+.data
+	EnterInput byte "Enter Limit of array you want to enter : ",0
+	array dword 1000 dup(0)
+	turns dword 0
+
+.code
+main PROC
+
+	mov eax , 0
+	mov ebx , 0
+	mov ecx , 0
+	mov edx , 0
+
+	mov edx , OFFSET EnterInput
+	Call WriteString
+
+	Call ReadInt
+	mov turns , eax ; the number of turns array would take an input
+
+	mov ecx , turns
+
+
+	mov esi , OFFSET array
+Here:
+
+	Call ReadInt
+	mov [esi], eax 
+	add esi , 8
+
+Loop HERE
+
+
+
+exit
+main ENDP
+END main
+
+
+BUBBLE SORTING 
+
+
+
+INCLUDE irvine32.inc
+
+.data
+	array Dword 5,9,11,6,7,2,3,1,0,15,18,12,10
+	count dword 0
+	iteration Dword 0
+.code
+main PROC
+	
+	mov ecx , LENGTHOF array-1
+
+	HERE:
+			mov esi , OFFSET array
+			mov count , ecx
+			mov ecx , LENGTHOF array-1
+	THERE:
+			mov eax , [esi]
+			mov ebx , [esi+4]
+			
+			
+			cmp eax , ebx
+			jg elsee
+			
+			mov [esi+4] , eax
+			mov [esi] , ebx
+			
+		elsee:
+			
+			add esi , 4
+		LOOP THERE
+
+			mov ecx , count
+		LOOP HERE
+
+	mov ecx , LENGTHOF array 
+	mov esi , OFFSET array
+	L1:
+		mov eax , [esi]
+		call writeInt
+		add esi , 4
+	LOOP L1
+
+
+exit
+main endp
+end main
+
+
+
+REVERSE INTEGER ARRAY
+
+
+
+
+INCLUDE irvine32.inc
+
+
+.data
+
+array word 10,12,51,62,5,9,71,5,95,25,35,15,59,0
+
+.code
+main PROC
+
+	mov esi ,0
+	mov ecx , LENGTHOF array -1
+	
+	L1:		
+			movzx eax , array[esi]
+			push eax
+			add esi , 2
+			LOOP L1
+
+	mov esi , 0
+	mov ecx , LENGTHOF array -1
+	
+	L2:		pop eax
+			mov array[esi],  ax
+			add esi , 2
+			call WriteInt
+
+			LOOP L2
+		
+	call crlf
+exit
+main endp
+end main
+
+
+
+DORY WALA QUESTION
+
+
+
+TITLE My First Program (Test.asm)
+INCLUDE Irvine32.inc
+
+.data
+	EnterInput byte "Enter Limit of array you want to enter : ",0
+	array DWORD 1000 dup(0)
+	turns dword 0
+	doryy byte "Found", 0
+	nf byte "Not Found", 0
+	
+
+.code
+main PROC
+
+	mov eax , 0
+	mov ebx , 0
+	mov ecx , 0
+	mov edx , 0
+
+	mov edx , OFFSET EnterInput
+	Call WriteString
+
+	Call ReadInt
+	mov turns , eax ; the number of turns array would take an input
+
+	mov ecx , turns
+
+
+	mov esi , OFFSET array
+Here:
+
+	Call ReadChar
+	call writechar
+	mov [esi], al 
+	add esi , 4
+
+Loop HERE
+
+	mov esi , OFFSET array
+	mov ecx , turns
+
+There:
+
+	mov eax , [esi]
+	cmp eax, 'd'
+	jne last
+	
+	mov eax , [esi+4]
+	cmp eax, 'o'
+	jne last
+	
+	mov eax , [esi+8]
+	cmp eax, 'r'
+	jne last
+	
+	mov eax , [esi+12]
+	cmp eax, 'y'
+	jne last
+	jmp dory
+
+last:
+	add esi , 4
+Loop THERE
+	mov edx , offset nf
+	call crlf
+	call crlf
+	call crlf
+	call writestring
+exit
+dory:
+	mov edx , offset doryy
+	call crlf
+call crlf
+	call crlf
+	call writestring
+
+exit
+main ENDP
+END main
+

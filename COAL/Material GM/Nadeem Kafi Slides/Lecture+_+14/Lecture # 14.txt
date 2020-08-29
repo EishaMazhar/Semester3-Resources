@@ -1,0 +1,11 @@
+Toics covered:
+
+
+1. See attached slides.
+
+2. How nested functions uses runtime stack?
+
+3. Different use of PUSH and POP instructions.
+
+4. Calculating the no. of memory read/write cycles needed to execute 
+   a assembly code snippet.

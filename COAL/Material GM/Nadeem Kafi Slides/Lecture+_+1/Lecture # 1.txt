@@ -1,0 +1,13 @@
+Topics covered:
+
+1. COAL: Motivaiton and Objective
+2. Definitions:
+   a) Computer Organization
+   b) Assembly Language
+   c) Generation of executable code from HLL and Assembly code
+3. Blackbox Basic arithmatic and logic unit
+   a) Control input
+   b) Inputs
+   c) outputs
+
+Whiteboard snaps attached.

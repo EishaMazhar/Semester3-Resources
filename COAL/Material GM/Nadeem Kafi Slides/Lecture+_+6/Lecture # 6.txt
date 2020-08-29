@@ -1,0 +1,37 @@
+>>> Read chapter # 2 topics covered so far 
+
+>>> Topics covered:
+
+1. ADD instructions with two or three operands
+   a) Most of the x86 instructions have two operands
+   b) Non x85 ISA have three operands like ADD R0, R1, R2
+   c) Operations: ADD, SUB, IDIV, IMUL, XOR, AND, OR, SHR, SHL, ROL, ROR, etc.
+
+2. Flag register
+   a) carry flag
+   b) Overflow flag
+   c) Zero flag
+   d) Sign flag
+
+3. Working or General purpose Registers
+   a) AX, BX, CX, DX
+   b) These also have special purpose like CX is counter.
+  
+4. Pointer Registers
+   a) Intructions pointer (IP)
+   b) Data pointers (EBX, ESI, EDI)
+   c) Stack Pointer (SP)
+
+5. Segment Registers
+   a) CS Code Segment
+   b) DS and ES as Data segemnt and Extra (data) segment
+   c) SS Stack Segment
+   d) There are other segment registers as well.
+
+6. How segment register and Pointer register makes a logical address?
+   a) CS:IP pointes to Code segment in memory
+   b) DS:BX, DS:SI, DS:DI, ES:BX, ES:SI, ES:DI points to data segments
+   c) SS:SP is the stack pointer and points to top of the stack
+   d) Memory address = Segment (or base) address + Offset (given by pointer register)
+
+Whiteboard snap(s) attached.

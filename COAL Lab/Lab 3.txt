@@ -1,0 +1,137 @@
+Eisha Tir Raazia
+17k-3730
+sec C
+Lab 3 tasks!
+---------1-----------
+INCLUDE Irvine32.inc
+.data
+	x word 20
+	y word 10
+.code
+	main PROC
+
+	mov eax,0
+	mov ebx,0
+	inc x
+	mov ax,x
+	add ax,y
+	dec y
+	mov bx,y
+	neg bx
+	add ax,bx
+	call DumpRegs
+
+	exit
+	main ENDP
+	END main
+----------2-----------
+INCLUDE Irvine32.inc
+.data
+	val1  word 8
+	val2  word 15
+	val3  word 20
+
+.code
+	main PROC
+
+	mov eax,0
+	mov ax,val1
+	add ax,7
+	sub ax,val2
+	sub ax,val3
+	movsx eax,ax  ; eax=FFFFFFEC
+	call DumpRegs
+
+	exit
+	main ENDP
+	END main
+
+----------3---------
+INCLUDE Irvine32.inc
+.data
+	side byte 4
+	area byte ?
+.code
+	main PROC
+
+	mov eax,0
+	mov al,side
+	mul side
+	mov area,al
+	movzx eax,area ; eax=00000010
+	call DumpRegs
+
+	exit
+	main ENDP
+	END main
+
+-----------4---------
+INCLUDE Irvine32.inc
+.data
+	l BYTE 12
+	w BYTE 5
+	area WORD 0
+.code
+	main PROC
+
+	mov eax,0
+	mov al,l
+	mul w
+	mov area,ax
+	movzx eax,area
+	call DumpRegs
+
+	exit
+	main ENDP
+	END main
+-----------5----------
+INCLUDE Irvine32.inc
+.data
+	base BYTE 11
+	height BYTE 5
+	d BYTE 2
+	area WORD 0
+.code
+	main PROC
+	
+	mov eax,0
+	mov al,base
+	mul height
+	div d
+	mov area,ax
+	call DumpRegs
+
+	exit
+	main ENDP
+	END main
+----------6------------
+.data
+	val1 BYTE 10h
+	val2 WORD 8000h
+	val3 DWORD 0FFFFh
+	val4 WORD 7FFFh
+(i)
+	mov eax,0
+	mov ax,val2
+	inc ax
+	call DumpRegs
+(ii)
+	mov eax,0
+	sub eax,val3 ;  eax=FFFF0001
+	call DumpRegs
+(iii)
+	mov eax,0
+	mov ax,val2
+	sub ax,val4 
+	call DumpRegs
+(iv)
+	CF=0
+	SF=1
+	AF=0
+(v)
+	CF=0
+	SF=1
+	ZF=0
+	OF=1
+	AF=1
+	PF=1

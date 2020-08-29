@@ -1,0 +1,10 @@
+//suppose we randomly read files so random option for suppose 
+selects file 2 then 1,3,4 and 5 so output becomes
+1 1 1
+3 2 1
+6 3 6
+20 3 4
+43 5 1
+50 3 1
+88 2 10
+100 1 2

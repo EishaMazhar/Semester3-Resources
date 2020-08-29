@@ -1,0 +1,18 @@
+>>> Read all covered topics, code snippets and tables from chapter # 3
+
+>>> Topics covered:
+
+1. Little and Big Endian. When conversion from one to another is important?
+
+2. jump instructions
+   a) unconditional jumps
+   b) conditional jumps (like JLE, JL, JG, JE, JZ, JNE, JNZ, etc.).
+      They contain two statements: 1) a CMP to test the condition and
+      2) a conditional jump like JLE to take the jump of condition is true.
+
+3. LOOP instructions and its uses
+
+4. Nexted loop using LOOP instruction
+
+5. Class test: Count number of spaces in a string and places the count in AL.
+

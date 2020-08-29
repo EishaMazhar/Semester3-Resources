@@ -1,0 +1,63 @@
+
+
+See the list of topics and guidelines for final exams coverage.
+
+
+COAL final exam paper has two parts:
+PART-I comprises numerous short/objective type questions with a time estimation of 60 minutes and is of 40 points. You have to attempt it on the question paper and, where applicable, encircle answers. However, you must show all workings in order to get credit. Similarly, encircling wrong choice / two options for the same question/ reattempting an attempted question will result in no credit. 
+PART-II has ten (10) short questions and a time of 120 minutes (12 minutes per question) and covers 60 points
+All labs topics are included.
+Attempt all question in order. Leave one page (both sides) if you want to skip any question.
+Make written assumptions, if you think something is missing in any question.
+Examples are necessary where asked for.
+Provide only the hex-decimal values where asked for values. Binary/decimal values will be considered incorrect.
+Don’t be panic while attempting the questions, try to calmly solve the questions step by step.<o:p></o:p>
+List of Topics (Kip Irvine 7th Edition book)<o:p></o:p>
+
+Assembly Language (64 bit Programming is not included)
+
+
+Chapter # 1: Topics covered in lectures
+
+Chapter # 2: Topics covered in lectures
+
+Chapter # 3:  Complete.
+
+Chapter # 4:  Complete
+
+Chapter # 5:  5.1, 5.2, 5.4
+
+Chapter # 6:  6.1, 6.2, 6.3, 6.4
+
+Chapter # 7:  7.1, 7.2, 7.3 
+
+Chapter # 8:  8.1, 8.2, 8.3, 8.4
+
+Chapter # 9:  9.2, 9.4
+
+Chapter # 13: 13.1, 13.2(13.2.1, 13.2.2)
+
+Chapter # 17:  17.4
+
+All topics covered in Lecture Slides are part of the Syllabus.
+
+Computer Organization
+
+Micro Architecture (Microprocessor Architecture)
+
+Instruction Formats and Encode
+
+Interrupts (Hardware, software, How both are processed?)
+
+CISC ISA, RISC ISA, CISC vs. RISC
+
+Assembly Interfacing with High-Level Languages
+
+Using assembly language in C/C++
+
+In-line Assembly in C/C++
+
+Translating C/C++ language program to Assembly and vice versa.
+
+Thank You.
+

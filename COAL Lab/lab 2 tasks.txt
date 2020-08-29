@@ -1,0 +1,54 @@
+EISHA TIR RAAZIA 
+K17-3730; SEC:C
+LAB.2 TASKS
+
+-----(1)------
+INCLUDE Irvine32.inc
+.data
+	var1 SBYTE ?
+	var2 SBYTE -10
+
+.code
+	MOV var2,var1
+
+-----(2)------
+INCLUDE Irvine32.inc
+.data
+	a WORD ?
+.code
+	mov a,bx
+
+-----(3)------
+INCLUDE Irvine32.inc
+.data
+	val3 SDWORD -2147483648
+
+-----(4)------
+INCLUDE Irvine32.inc
+
+.data
+	wArray WORD 1,2,3
+
+-----(5)------
+INCLUDE Irvine32.inc
+
+.data
+	MyString BYTE "White",0
+
+-----(6)------
+INCLUDE Irvine32.inc
+
+.data
+	A WORD 12
+	B WORD 3
+	C WORD 13
+	D WORD 8
+	E WORD 14
+	value WORD ?
+.code
+	mov ax,a
+	mul b
+	add ax,c
+	mul d
+	sub ax,e
+	mov value,ax

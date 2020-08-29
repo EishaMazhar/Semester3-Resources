@@ -1,0 +1,23 @@
+>>> Read all covered topics, code snippets and tables from chapter # 3
+
+>>> Topics covered:
+
+1. Addressing Modes (see whiteboard snap)
+
+2. Assembly Program Summing an integer array  
+   a) Implementation using LOOP instruction
+   b) Implementation without LOOP instruction
+   
+3. How to use PTR with memory access?
+   a) BYTE PTR
+   b) WORD PTR 
+   c) DWORD PTR
+
+4. SIZEOF and LENGTHOF assembler functions
+   a) Do their job only at assemble time
+
+5. Write assembly programs to copy and concatenate strings.
+
+Whiteboard snap attahed.
+Slides attached. 
+

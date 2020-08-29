@@ -1,0 +1,27 @@
+TITLE lab
+INCLUDE Irvine32.inc
+
+.data
+equalMsg BYTE "Numbers are equal..", 0
+notEqualMsg BYTE "Numbers are not equal..", 0 
+
+.code
+main PROC
+call ReadDec
+mov cl, al
+call ReadDec
+mov dl, al
+CMP cl, dl
+JZ equal
+mov edx, OFFSET notEqualMsg
+call WriteString
+exit
+
+equal:
+mov edx, OFFSET equalMsg
+call WriteString
+
+
+exit
+main ENDP
+END main

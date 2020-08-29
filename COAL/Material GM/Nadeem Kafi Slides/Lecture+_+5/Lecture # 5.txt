@@ -1,0 +1,24 @@
+>>> Read chapter # 2 topics covered so far 
+
+>>> Topics covered:
+
+1. Programer's view of the Computer System 
+   a) digital logic represent the building block like adders, MUXs, Decoders,
+      shiftregister, counters, etc.
+   b) micro-architecture = control path + data path. It fetchs and execute 
+      instructions.
+   c) instrution set archtiecture (IAS) exposes the micro-architecture (hardware)
+      for programming. It specifies how a processor micro-architecture functions
+      by running differnt instructions that use differnt registers. How
+      instructions access memory locations, etc.
+   d) Operating System (OS) provides various services based on CPU and other input
+      output devices (e.g PC or Raspberry Pi). It explolits many ISA features which
+      are not accessable to other users through HLL or Assembly.
+   e) HLLs or Assembly programs use OS to load and execute them. 
+
+2. A running program has three portions: code, data and stack. OS assigns 
+   physical memory addresses for each portion of your program. Each time you run
+   our HLL or Assembly program, the starting memory address of each of these 
+   portions might change.
+
+Whiteboard snap(s) attached.
